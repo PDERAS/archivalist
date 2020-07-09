@@ -1,0 +1,57 @@
+{
+    "name": "pderas/archivalist",
+    "description": "",
+    "keywords": [
+        "pderas",
+        "archivalist"
+    ],
+    "homepage": "https://github.com/pderas/archivalist",
+    "license": "MIT",
+    "type": "library",
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "authors": [
+        {
+            "name": "Reed Jones",
+            "email": "reed.jones@pderas.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^7.3",
+        "illuminate/support": "^6.0|^7.0"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^5.0",
+        "pestphp/pest": "^0.2.3",
+        "phpunit/phpunit": "^9.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "PDERAS\\Archivalist\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "PDERAS\\Archivalist\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/pest",
+        "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
+
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "PDERAS\\Archivalist\\ArchivalistServiceProvider"
+            ],
+            "aliases": {
+                "Archivalist": "PDERAS\\Archivalist\\ArchivalistFacade"
+            }
+        }
+    }
+}
