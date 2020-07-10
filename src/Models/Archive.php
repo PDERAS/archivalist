@@ -4,8 +4,12 @@ namespace PDERAS\Archivalist\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Schema;
+use PDERAS\Archivalist\Traits\IsPolymorphic;
 
 class Archive extends Model {
+
+    use IsPolymorphic;
+
     /**
      * Get the archived data.
      * - Retrieve the raw json string using `->getRawOriginal('data')`
@@ -21,6 +25,16 @@ class Archive extends Model {
     }
 
     /**
+     * Gets the original unmodified archived data
+     *
+     * @return array
+     */
+    public function getArchivedData(): array
+    {
+        return json_decode($this->getRawOriginal('data'), true);
+    }
+
+    /**
      * get raw database columns for the supplied model
      *
      * @param \Illuminate\Database\Eloquent\Model $model
@@ -29,45 +43,6 @@ class Archive extends Model {
      */
     public function getTableColumns(Model $model): array {
         return Schema::getColumnListing($model->getTable());
-    }
-
-    /**
-     * Get the related model
-     */
-    public function getRelatedModel(): Model
-    {
-        $class = $this->getRelatedClass();
-        return $class::find($this->{config('archivalist.morph_name') . '_id'});
-    }
-
-    /**
-     * get the related models class
-     */
-    public function getRelatedClass(): string
-    {
-        return $this->{config('archivalist.morph_name') . '_type'};
-    }
-
-    /**
-     * get the related models id
-     *
-     * @return string
-     */
-    public function getRelatedId(): string
-    {
-        return $this->{config('archivalist.morph_name') . '_id'};
-    }
-
-    public function getCurrentData(): array
-    {
-        $model = $this->getRelatedModel();
-        $tableColumns = $this->getTableColumns($model);
-        return collect($model)->only($tableColumns)->toArray();
-    }
-
-    public function getArchivedData(): array
-    {
-        return json_decode($this->getRawOriginal('data'), true);
     }
 
     /**
