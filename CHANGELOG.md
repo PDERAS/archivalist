@@ -12,7 +12,6 @@ All notable changes to `archivalist` will be documented in this file
 - added `PDERAS\Archivalist\Models\Archive@getRelatedClass`
 - added `PDERAS\Archivalist\Models\Archive@getRelatedId`
 - added `PDERAS\Archivalist\Models\Archive@getRelatedId`
-- added `PDERAS\Archivalist\Models\Archive@getCurrentData`
 - added `PDERAS\Archivalist\Models\Archive@getArchivedData`
 
 ### Changed
