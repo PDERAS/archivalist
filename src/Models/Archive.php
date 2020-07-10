@@ -21,43 +21,90 @@ class Archive extends Model {
     }
 
     /**
+     * get raw database columns for the supplied model
+     *
+     * @param \Illuminate\Database\Eloquent\Model $model
+     *
+     * @return string
+     */
+    public function getTableColumns(Model $model): array {
+        return Schema::getColumnListing($model->getTable());
+    }
+
+    /**
+     * Get the related model
+     */
+    public function getRelatedModel(): Model
+    {
+        $class = $this->getRelatedClass();
+        return $class::find($this->{config('archivalist.morph_name') . '_id'});
+    }
+
+    /**
+     * get the related models class
+     */
+    public function getRelatedClass(): string
+    {
+        return $this->{config('archivalist.morph_name') . '_type'};
+    }
+
+    /**
+     * get the related models id
+     *
+     * @return string
+     */
+    public function getRelatedId(): string
+    {
+        return $this->{config('archivalist.morph_name') . '_id'};
+    }
+
+    public function getCurrentData(): array
+    {
+        $model = $this->getRelatedModel();
+        $tableColumns = $this->getTableColumns($model);
+        return collect($model)->only($tableColumns)->toArray();
+    }
+
+    public function getArchivedData(): array
+    {
+        return json_decode($this->getRawOriginal('data'), true);
+    }
+
+    /**
      * Rehydrates the 'Archive' model into its original form
      * i.e. if its a User Archive, then it will return a User model
      *
      * @return $model
      */
-    public function rehydrate(): Model
+    public function rehydrate($previous): Model
     {
         // Get the parent class
-        $class = $this->{config('archivalist.morph_name') . '_type'};
+        $class = $this->getRelatedClass();
 
-        // get the actual parent model
-        $model = $class::find($this->{config('archivalist.morph_name') . '_id'});
-
-        // get raw database columns
-        $tableColumns = Schema::getColumnListing($model->getTable());
-
-        // get the archived data
-        $archival = json_decode($this->getRawOriginal('data'), true);
+        $tableColumns = $this->getTableColumns($previous);
 
         // collect database columns & update
-        $attributes = array_merge(collect($model)->only($tableColumns)->toArray(), $archival);
+        $archivedAttributes = array_merge(
+            collect($previous)->only($tableColumns)->toArray(),
+            $this->getArchivedData()
+        );
 
         // create a new model with the archived attributes
-        return tap(new $class, function ($instance) use ($attributes, $class) {
+        return tap(new $class, function ($instance) use ($archivedAttributes) {
 
             // Update All Fields
-            $instance->setRawAttributes($attributes);
+            $instance->setRawAttributes($archivedAttributes);
 
             // Update & Format Timestamps
             // \Illuminate\Database\Eloquent\Concerns\HasTimestamps@updateTimestamps
             $updatedAtColumn = $instance->getUpdatedAtColumn();
             if (! is_null($updatedAtColumn)) {
-                $instance->setUpdatedAt($attributes[$updatedAtColumn]);
+                $instance->setUpdatedAt($archivedAttributes[$updatedAtColumn]);
             }
+
             $createdAtColumn = $instance->getCreatedAtColumn();
             if (! is_null($createdAtColumn)) {
-                $instance->setCreatedAt($attributes[$createdAtColumn]);
+                $instance->setCreatedAt($archivedAttributes[$createdAtColumn]);
             }
         });
     }
