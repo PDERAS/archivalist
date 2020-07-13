@@ -14,7 +14,7 @@ class CreateArchivalistsTable extends Migration
     public function up()
     {
         Schema::create(config('archivalist.table_name'), function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
             $table->morphs(config('archivalist.morph_name'));
             $table->json('data');
             $table->timestamps();
