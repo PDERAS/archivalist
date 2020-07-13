@@ -103,6 +103,13 @@ it("exposes a mass assignment update proxy on the facade", function () {
     }
 
     Archivalist::proxy(Post::query())
+        ->where('title', '!=', 'blah')
+        ->where(function ($query) {
+            return $query->where('content', '!=', 'doesnt exist')
+                ->orWhereNull('content');
+        })
+        ->whereNull('content')
+        ->whereIn('id', [1,2,3,4,5])
         ->update(['title' => 'New Title']);
 
     $history = Post::find(2)->getHistory();

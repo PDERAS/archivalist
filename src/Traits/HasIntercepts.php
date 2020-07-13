@@ -27,7 +27,9 @@ trait HasIntercepts {
         }
 
         // Run the original method, unchanged
-        return $this->query->{$method}(...$args);
+        $this->query = $this->query->{$method}(...$args);
+
+        return $this;
     }
 
     /**
