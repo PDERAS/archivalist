@@ -6,7 +6,8 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Support\Collection;
 use PDERAS\Archivalist\Observers\ArchiveObserver;
 
-trait HasArchives {
+trait HasArchives
+{
 
     /**
      * polymorphic one to many on the archives table.
@@ -50,7 +51,7 @@ trait HasArchives {
         }
 
         // by default, always save 'updated_at'
-        return [ $this->getUpdatedAtColumn() ];
+        return [$this->getUpdatedAtColumn() => $this->updated_at];
     }
 
     /**
@@ -75,21 +76,38 @@ trait HasArchives {
      */
     public function saveArchive(): self
     {
-           // Get the original data for the dirty columns
-           $dirty = $this->getOriginalDirty();
+        // Get the original data for the dirty columns
+        $dirty = $this->getOriginalDirty();
 
-           // get any extra columns to be saved
-           $extra = $this->getArchived();
+        $this->archiveWithData($dirty);
 
-           // merge the data
-           $data = json_encode(array_merge($dirty, $extra));
-           $class = config('archivalist.archive_class');
+        return $this;
+    }
 
-           $this->archives()->save(
-               tap($class::make())->forceFill(['data' => $data])
-           );
+    public function archiveWithData($data)
+    {
+        $data = collect($data)
+            ->filter(function ($value, $key) {
+                // Filter out $hidden attributes
+                return !in_array($key, $this->getHidden());
+            })
+            ->toArray();
 
-           return $this;
+        if (!$data) {
+            // no updateable data...
+            return;
+        }
+
+        // get any extra columns to be saved
+        $extra = $this->getArchived();
+
+        $class = config('archivalist.archive_class');
+        // merge the data
+        $json = json_encode(array_merge($data, $extra));
+
+        $this->archives()->save(
+            tap($class::make())->forceFill(['data' => $json])
+        );
     }
 
     /**
@@ -99,13 +117,18 @@ trait HasArchives {
      */
     public function getHistory(): Collection
     {
-        return $this->archives()
+        $archives = $this->archives()
             ->orderBy('id', 'desc')
-            ->get()
-            ->map
-            ->rehydrate()
-            ->prepend($this) // its reversed, so the 'current' state goes first
-            ->reverse()
-            ->values();
+            ->get();
+
+        $parent = $this;
+        $mapped  = collect([$parent]);
+
+        foreach ($archives as $archive) {
+            $parent = $archive->rehydrate($parent);
+            $mapped->push($parent);
+        }
+
+        return $mapped->reverse()->values();
     }
 }

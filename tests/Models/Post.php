@@ -7,4 +7,6 @@ use PDERAS\Archivalist\Traits\HasArchives;
 
 class Post extends Model {
     use HasArchives;
+
+    protected $hidden = [ 'secret' ];
 }
