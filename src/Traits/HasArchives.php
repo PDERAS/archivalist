@@ -65,7 +65,7 @@ trait HasArchives
         return collect($this->getDirty())
             ->keys()
             ->mapWithKeys(function ($key) {
-                return [$key => $this->getRawOriginal($key)];
+                return [$key => $this->getOriginal($key)];
             })->toArray();
     }
 

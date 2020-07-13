@@ -12,7 +12,7 @@ class Archive extends Model {
 
     /**
      * Get the archived data.
-     * - Retrieve the raw json string using `->getRawOriginal('data')`
+     * - Retrieve the raw json string using `->getOriginal('data')`
      * - Query json data using `->where('data->id', 1)`
      *
      * @param  string  $value
@@ -31,7 +31,7 @@ class Archive extends Model {
      */
     public function getArchivedData(): array
     {
-        return json_decode($this->getRawOriginal('data'), true);
+        return json_decode($this->getOriginal('data'), true);
     }
 
     /**

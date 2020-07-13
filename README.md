@@ -37,7 +37,7 @@ class Post extends Model {
     // Alternatively...
     protected function archived() {
         return [
-            'updated_at' => $this->getRawOriginal('updated_at'),
+            'updated_at' => $this->getOriginal('updated_at'),
             'is_archived' => true
         ];
     }
@@ -57,6 +57,19 @@ A Collection with the full history of the model can be acquired using `->getHist
 
 ```php
 $user->getHistory(); // A user model for every state the user was in
+```
+
+Mass assignment is not supported, in which case you must use the following workaround:
+
+```php
+//  Do not do
+Post::where('status','open')
+    ->update(['status','closed']); // This will fail
+
+//  Do this instead
+Archivalist::proxy(Post::query())
+    ->where('status','open')
+    ->update(['status','closed']);
 ```
 
 ## Testing
