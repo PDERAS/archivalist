@@ -29,9 +29,10 @@ class Archive extends Model {
      *
      * @return array
      */
-    public function getArchivedData(): array
+    public function getArchivedData($asArray = true): array
     {
-        return json_decode($this->getOriginal('data'), true);
+        $datum = $this->getOriginal('data') ;
+        return $asArray ? (array) $datum : $datum;
     }
 
     /**
@@ -61,7 +62,7 @@ class Archive extends Model {
         // collect database columns & update
         $archivedAttributes = array_merge(
             collect($previous)->only($tableColumns)->toArray(),
-            $this->getArchivedData()
+            $this->getArchivedData(true)
         );
 
         // create a new model with the archived attributes
