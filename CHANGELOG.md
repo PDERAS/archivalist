@@ -2,6 +2,12 @@
 
 All notable changes to `archivalist` will be documented in this file
 
+## 0.2.2 - 2020-07-13
+
+### Added
+- Added support for Laravel 6.x
+- Added docs for mass assignment workaround
+
 ## 0.2.0 - 2020-07-10
 
 ### Added
