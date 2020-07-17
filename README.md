@@ -72,6 +72,17 @@ Archivalist::proxy(Post::query())
     ->update(['status','closed']);
 ```
 
+Support for beforeArchive has been added. Implement the method `beforeArchive` on any model which uses 'HasArchives` trait to run any extra logic before the primary archives logic is ran.
+
+```php
+// SomeModel which uses HasArchives
+
+public function beforeArchive() {
+    //  Put logic here to be ran before the primary archives logic is ran
+    //  useful for automating tasks such as always writing user->id, etc
+}
+```
+
 ## Testing
 
 ```bash

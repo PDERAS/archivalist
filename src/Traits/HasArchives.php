@@ -81,6 +81,9 @@ trait HasArchives
      */
     public function saveArchive(): self
     {
+        //  Run the optional callback logic
+        $this->beforeArchiveCallback();
+
         // Get the original data for the dirty columns
         $dirty = $this->getOriginalDirty();
 
@@ -136,4 +139,16 @@ trait HasArchives
 
         return $mapped->reverse()->values();
     }
+
+
+    /**
+     * Helper callback, implement beforeArchive method in your models to run any extra
+     * logic before archive logic is run.
+     */
+    public function beforeArchiveCallback() {
+        if (method_exists($this, 'beforeArchive')) {
+            return $this->beforeArchive();
+        }
+    }
+
 }
