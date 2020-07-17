@@ -110,6 +110,9 @@ trait HasArchives
         // merge the data
         $json = json_encode(array_merge($data, $extra));
 
+        //  Run the optional callback logic
+        $this->beforeArchiveCallback();
+
         $this->archives()->save(
             tap($class::make())->forceFill(['data' => $json])
         );
@@ -136,4 +139,16 @@ trait HasArchives
 
         return $mapped->reverse()->values();
     }
+
+
+    /**
+     * Helper callback, implement beforeArchive method in your models to run any extra
+     * logic before archive logic is run.
+     */
+    public function beforeArchiveCallback() {
+        if (method_exists($this, 'beforeArchive')) {
+            return $this->beforeArchive();
+        }
+    }
+
 }
