@@ -81,9 +81,6 @@ trait HasArchives
      */
     public function saveArchive(): self
     {
-        //  Run the optional callback logic
-        $this->beforeArchiveCallback();
-
         // Get the original data for the dirty columns
         $dirty = $this->getOriginalDirty();
 
@@ -112,6 +109,9 @@ trait HasArchives
         $class = config('archivalist.archive_class');
         // merge the data
         $json = json_encode(array_merge($data, $extra));
+
+        //  Run the optional callback logic
+        $this->beforeArchiveCallback();
 
         $this->archives()->save(
             tap($class::make())->forceFill(['data' => $json])
