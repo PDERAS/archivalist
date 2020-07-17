@@ -5,10 +5,12 @@ namespace PDERAS\Archivalist\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Schema;
 use PDERAS\Archivalist\Traits\IsPolymorphic;
+use Staudenmeir\EloquentJsonRelations\HasJsonRelationships;
 
 class Archive extends Model {
 
-    use IsPolymorphic;
+    use IsPolymorphic,
+        HasJsonRelationships;
 
     /**
      * Get the archived data.
