@@ -5,9 +5,14 @@ namespace PDERAS\Archivalist\Traits;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Support\Collection;
 use PDERAS\Archivalist\Observers\ArchiveObserver;
+use Staudenmeir\EloquentJsonRelations\HasJsonRelationships;
 
 trait HasArchives
 {
+    /**
+     * Support for JSON relationships
+     */
+    use HasJsonRelationships;
 
     /**
      * polymorphic one to many on the archives table.
