@@ -2,6 +2,11 @@
 
 All notable changes to `archivalist` will be documented in this file
 
+## 0.2.3 - 2020-07-17
+
+### Added
+- Added support for JSON relationships, [see the repo for more details](https://github.com/staudenmeir/eloquent-json-relations)
+
 ## 0.2.2 - 2020-07-13
 
 ### Added
