@@ -1,11 +1,12 @@
 <?php
 
-namespace PDERAS\Archivalist\Traits;
+namespace Pderas\Archivalist\Traits;
 
 use ReflectionMethod;
 use ReflectionClass;
 
-trait HasIntercepts {
+trait HasIntercepts
+{
     /**
      * Magic method to intercept & forward calls to the
      * main query
@@ -55,7 +56,7 @@ trait HasIntercepts {
     {
         $class = new ReflectionClass(self::class);
         return collect($class->getMethods(ReflectionMethod::IS_PROTECTED))
-            ->some(function ($method) use($interceptMethod) {
+            ->some(function ($method) use ($interceptMethod) {
                 return $method->name === $interceptMethod;
             });
     }

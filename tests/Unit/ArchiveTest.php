@@ -1,7 +1,7 @@
 <?php
 
-use PDERAS\Archivalist\Archivalist;
-use PDERAS\Archivalist\Tests\Models\Post;
+use Pderas\Archivalist\Archivalist;
+use Pderas\Archivalist\Tests\Models\Post;
 
 it('Creates model without archives', function () {
     $post = tap(new Post)->save();
@@ -109,7 +109,7 @@ it("exposes a mass assignment update proxy on the facade", function () {
                 ->orWhereNull('content');
         })
         ->whereNull('content')
-        ->whereIn('id', [1,2,3,4,5])
+        ->whereIn('id', [1, 2, 3, 4, 5])
         ->update(['title' => 'New Title']);
 
     $history = Post::find(2)->getHistory();

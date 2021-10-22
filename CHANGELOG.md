@@ -24,18 +24,18 @@ All notable changes to `archivalist` will be documented in this file
 
 ### Added
 
--   added `\PDERAS\Archivalist\Archivalist` facade
--   added `\PDERAS\Archivalist\Archivalist::proxy($query)` to proxy & archive mass updates
--   added `PDERAS\Archivalist\Models\Archive@getTableColumns`
--   added `PDERAS\Archivalist\Models\Archive@getRelatedModel`
--   added `PDERAS\Archivalist\Models\Archive@getRelatedClass`
--   added `PDERAS\Archivalist\Models\Archive@getRelatedId`
--   added `PDERAS\Archivalist\Models\Archive@getRelatedId`
--   added `PDERAS\Archivalist\Models\Archive@getArchivedData`
+-   added `\Pderas\Archivalist\Archivalist` facade
+-   added `\Pderas\Archivalist\Archivalist::proxy($query)` to proxy & archive mass updates
+-   added `Pderas\Archivalist\Models\Archive@getTableColumns`
+-   added `Pderas\Archivalist\Models\Archive@getRelatedModel`
+-   added `Pderas\Archivalist\Models\Archive@getRelatedClass`
+-   added `Pderas\Archivalist\Models\Archive@getRelatedId`
+-   added `Pderas\Archivalist\Models\Archive@getRelatedId`
+-   added `Pderas\Archivalist\Models\Archive@getArchivedData`
 
 ### Changed
 
--   `PDERAS\Archivalist\Models\Archive@rehydrate` now requires a parent model to be supplied, which the rehydration will be based off
+-   `Pderas\Archivalist\Models\Archive@rehydrate` now requires a parent model to be supplied, which the rehydration will be based off
 
 ### Fixed
 

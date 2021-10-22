@@ -1,11 +1,11 @@
 <?php
 
-namespace PDERAS\Archivalist;
+namespace Pderas\Archivalist;
 
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @see \PDERAS\Archivalist\Skeleton\SkeletonClass
+ * @see \Pderas\Archivalist\Skeleton\SkeletonClass
  */
 class Archivalist extends Facade
 {
@@ -16,6 +16,6 @@ class Archivalist extends Facade
      */
     protected static function getFacadeAccessor()
     {
-        return \PDERAS\Archivalist\Support\Archivalist::class;
+        return \Pderas\Archivalist\Support\Archivalist::class;
     }
 }

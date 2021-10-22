@@ -1,6 +1,6 @@
 <?php
 
-namespace PDERAS\Archivalist\Observers;
+namespace Pderas\Archivalist\Observers;
 
 use Illuminate\Database\Eloquent\Model;
 

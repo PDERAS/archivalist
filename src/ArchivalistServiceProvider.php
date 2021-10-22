@@ -1,6 +1,6 @@
 <?php
 
-namespace PDERAS\Archivalist;
+namespace Pderas\Archivalist;
 
 use Illuminate\Support\ServiceProvider;
 
