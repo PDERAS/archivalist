@@ -15,9 +15,10 @@ composer require pderas/archivalist
 
 ## Usage
 
-Simply add the `PDERAS\Archivalist\Traits\HasArchives` to any model you wish to archive.
+Simply add the `Pderas\Archivalist\Traits\HasArchives` to any model you wish to archive.
+
 ```php
-use PDERAS\Archivalist\Traits\HasArchives;
+use Pderas\Archivalist\Traits\HasArchives;
 class Post extends Model {
     use HasArchives;
 }
@@ -26,7 +27,7 @@ class Post extends Model {
 If you wish certain columns to _always_ be archived, this can be accomplished by adding wither a `archived` property or method to the model
 
 ```php
-use PDERAS\Archivalist\Traits\HasArchives;
+use Pderas\Archivalist\Traits\HasArchives;
 class Post extends Model {
     use HasArchives;
 
@@ -45,6 +46,7 @@ class Post extends Model {
 ```
 
 Archives can be 'rehydrated' into the state of the original model
+
 ```php
 $user->company = 'Pderas';
 $user->save();
@@ -99,7 +101,7 @@ If you discover any security related issues, please email reed.jones@pderas.com 
 
 ## Credits
 
-- [Reed Jones](https://github.com/pderas)
+-   [Reed Jones](https://github.com/pderas)
 
 ## License
 

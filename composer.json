@@ -15,6 +15,11 @@
             "name": "Reed Jones",
             "email": "reed.jones@pderas.com",
             "role": "Developer"
+        },
+        {
+            "name": "Strider White",
+            "email": "strider.white@pderas.com",
+            "role": "Developer"
         }
     ],
     "require": {
@@ -48,10 +53,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "PDERAS\\Archivalist\\ArchivalistServiceProvider"
+                "Pderas\\Archivalist\\ArchivalistServiceProvider"
             ],
             "aliases": {
-                "Archivalist": "PDERAS\\Archivalist\\ArchivalistFacade"
+                "Archivalist": "Pderas\\Archivalist\\ArchivalistFacade"
             }
         }
     }
