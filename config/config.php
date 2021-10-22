@@ -6,5 +6,5 @@
 return [
     'table_name' => 'archives',
     'morph_name' => 'archivable',
-    'archive_class' => \PDERAS\Archivalist\Models\Archive::class
+    'archive_class' => \Pderas\Archivalist\Models\Archive::class
 ];

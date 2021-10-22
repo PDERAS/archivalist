@@ -1,10 +1,11 @@
 <?php
 
-namespace PDERAS\Archivalist\Traits;
+namespace Pderas\Archivalist\Traits;
 
 use Illuminate\Database\Eloquent\Model;
 
-trait IsPolymorphic {
+trait IsPolymorphic
+{
     /**
      * Get the related model
      */

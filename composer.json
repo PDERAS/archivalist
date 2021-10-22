@@ -34,12 +34,12 @@
     },
     "autoload": {
         "psr-4": {
-            "PDERAS\\Archivalist\\": "src"
+            "Pderas\\Archivalist\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "PDERAS\\Archivalist\\Tests\\": "tests"
+            "Pderas\\Archivalist\\Tests\\": "tests"
         }
     },
     "scripts": {

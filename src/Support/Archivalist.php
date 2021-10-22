@@ -1,9 +1,9 @@
 <?php
 
-namespace PDERAS\Archivalist\Support;
+namespace Pderas\Archivalist\Support;
 
 use Illuminate\Database\Eloquent\Builder;
-use PDERAS\Archivalist\Traits\HasIntercepts;
+use Pderas\Archivalist\Traits\HasIntercepts;
 
 class Archivalist
 {

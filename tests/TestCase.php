@@ -1,8 +1,8 @@
 <?php
 
-namespace PDERAS\Archivalist\Tests;
+namespace Pderas\Archivalist\Tests;
 
-use PDERAS\Archivalist\ArchivalistServiceProvider;
+use Pderas\Archivalist\ArchivalistServiceProvider;
 
 class TestCase extends \Orchestra\Testbench\TestCase
 {

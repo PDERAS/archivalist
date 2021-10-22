@@ -51,7 +51,7 @@ Archives can be 'rehydrated' into the state of the original model
 $user->company = 'Pderas';
 $user->save();
 
-$archive = $user->archives()->first(); // => \PDERAS\Archivalist\Models\Archive
+$archive = $user->archives()->first(); // => \Pderas\Archivalist\Models\Archive
 $original = $archive->rehydrate(); // => \App\User
 ```
 

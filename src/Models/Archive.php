@@ -1,13 +1,14 @@
 <?php
 
-namespace PDERAS\Archivalist\Models;
+namespace Pderas\Archivalist\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Schema;
-use PDERAS\Archivalist\Traits\IsPolymorphic;
+use Pderas\Archivalist\Traits\IsPolymorphic;
 use Staudenmeir\EloquentJsonRelations\HasJsonRelationships;
 
-class Archive extends Model {
+class Archive extends Model
+{
 
     use IsPolymorphic,
         HasJsonRelationships;
@@ -33,7 +34,7 @@ class Archive extends Model {
      */
     public function getArchivedData($asArray = true): array
     {
-        $datum = $this->getOriginal('data') ;
+        $datum = $this->getOriginal('data');
         return $asArray ? (array) $datum : $datum;
     }
 
@@ -44,7 +45,8 @@ class Archive extends Model {
      *
      * @return string
      */
-    public function getTableColumns(Model $model): array {
+    public function getTableColumns(Model $model): array
+    {
         return Schema::getColumnListing($model->getTable());
     }
 
@@ -76,12 +78,12 @@ class Archive extends Model {
             // Update & Format Timestamps
             // \Illuminate\Database\Eloquent\Concerns\HasTimestamps@updateTimestamps
             $updatedAtColumn = $instance->getUpdatedAtColumn();
-            if (! is_null($updatedAtColumn)) {
+            if (!is_null($updatedAtColumn)) {
                 $instance->setUpdatedAt($archivedAttributes[$updatedAtColumn]);
             }
 
             $createdAtColumn = $instance->getCreatedAtColumn();
-            if (! is_null($createdAtColumn)) {
+            if (!is_null($createdAtColumn)) {
                 $instance->setCreatedAt($archivedAttributes[$createdAtColumn]);
             }
         });

@@ -1,10 +1,10 @@
 <?php
 
-namespace PDERAS\Archivalist\Traits;
+namespace Pderas\Archivalist\Traits;
 
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Support\Collection;
-use PDERAS\Archivalist\Observers\ArchiveObserver;
+use Pderas\Archivalist\Observers\ArchiveObserver;
 use Staudenmeir\EloquentJsonRelations\HasJsonRelationships;
 
 trait HasArchives
@@ -145,10 +145,10 @@ trait HasArchives
      * Helper callback, implement beforeArchive method in your models to run any extra
      * logic before archive logic is run.
      */
-    public function beforeArchiveCallback() {
+    public function beforeArchiveCallback()
+    {
         if (method_exists($this, 'beforeArchive')) {
             return $this->beforeArchive();
         }
     }
-
 }
